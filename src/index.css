@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Hide scrollbar for Chrome, Safari and Opera */
+/* Vendor-specific prefixes are necessary for cross-browser compatibility */
+::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for Firefox */
+/* Vendor-specific prefixes are necessary for cross-browser compatibility */
+/* The 'scrollbar-width' property is only supported in Firefox 64+ */
+/* The 'scrollbar-color' property can be used to further customize the appearance of the scrollbar */
+/* Here, we set the color to transparent to effectively hide it */
+/* Note that these properties might change in future versions of Firefox */
+/* Always refer to the official documentation for the latest information */
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars */
+/* Consider fallback options if support for older browsers is required */
+/* For IE/Edge, considering using a JavaScript-based solution such as 'simplebar' */
+/* https://github.com/Grsmto/simplebar */
+
+/* Vendor-specific prefixes for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* Vendor-specific prefix for IE/Edge */
+*::-ms-scrollbar {
+  display: none;
+}
+
+/* Vendor-specific prefix for IE/Edge */
+* {
+  -ms-overflow-style: none;
+}
