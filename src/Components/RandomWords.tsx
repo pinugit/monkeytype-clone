@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import MovingBar from "./MovingBar";
 
 interface Props {
   words: string[];
@@ -6,7 +7,6 @@ interface Props {
 }
 
 const RandomWords = ({ words, numWords }: Props) => {
-  const wordRef = useRef<HTMLDivElement>(null);
   const getRandomWords = (inputWords: string[], count: number) => {
     const result = [""];
     for (let i = 0; i < count; i++) {
@@ -18,29 +18,41 @@ const RandomWords = ({ words, numWords }: Props) => {
     return resultWithoutFirst;
   };
 
-  useEffect(() => {
-    if (wordRef.current) {
-      const rect = wordRef.current.getBoundingClientRect();
-      console.log(
-        `left: ${rect.left}, right: ${rect.right}, bottom: ${rect.bottom},top:${rect.top}, width:${wordRef.current.offsetWidth} `
-      );
-    }
-  }, []);
-
   const randomWords = getRandomWords(words, numWords);
   console.log(randomWords);
-
+  const wordRefs = useRef(randomWords.map(() => useRef<HTMLLIElement>(null)));
+  useEffect(() => {
+    wordRefs.current.forEach((ref) => {
+      if (ref.current) {
+        const rect = (ref.current as HTMLElement).getBoundingClientRect();
+        console.log(
+          `left: ${rect.left}, right: ${rect.right}, bottom: ${
+            rect.bottom
+          }, top: ${rect.top}, width: ${
+            (ref.current as HTMLElement).offsetWidth
+          }`
+        );
+      }
+    });
+  }, []);
   return (
-    <ul className="flex flex-wrap">
-      {randomWords.map((word, index) => (
-        <li ref={wordRef} key={index} className="inline-block flex">
-          {word.split("").map((letter, index) => (
-            <p>{letter}</p>
-          ))}
-          &nbsp;
-        </li>
-      ))}
-    </ul>
+    <>
+      {/* <MovingBar xFrom={}/> */}
+      <ul className="flex flex-wrap">
+        {randomWords.map((word, index) => (
+          <li
+            key={index}
+            className="inline-block flex"
+            ref={wordRefs.current[index]}
+          >
+            {word.split("").map((letter, index) => (
+              <p key={index}>{letter}</p>
+            ))}
+            &nbsp;
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 

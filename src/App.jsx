@@ -96,7 +96,7 @@ function App() {
   return (
     <div className="flex h-screen w-screen p-[15%]">
       <div className="justify-center align-middle scrollable-div max-h-60 overflow-y-scroll border scroll border-gray-300 p-4 rounded-lg">
-        <RandomWords words={commonWords} numWords={500} />
+        <RandomWords words={commonWords} numWords={10} />
       </div>
     </div>
   );
