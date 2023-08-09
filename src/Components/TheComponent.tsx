@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from "react";
-
-const MyComponent: React.FC = () => {
+import React, { useRef, useEffect, ReactNode } from "react";
+interface Props {
+  word: ReactNode;
+}
+const MyComponent: React.FC = ({ word }: string) => {
   const h1Ref = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -12,11 +14,7 @@ const MyComponent: React.FC = () => {
     }
   }, []);
 
-  return (
-    <h1 ref={h1Ref} className="ml-6 inline-block">
-      Hello World
-    </h1>
-  );
+  return;
 };
 
 export default MyComponent;
