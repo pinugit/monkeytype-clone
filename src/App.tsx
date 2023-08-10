@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RandomWords from "./Components/RandomWords";
 import MovingBar from "./Components/MovingBar";
-interface cordinates {
+interface coordinates {
   xfrom: number;
   xto: number;
   y: number;
@@ -100,29 +100,29 @@ function App() {
     "well",
   ];
   const [count, setCount] = useState(0);
-  const [currentWordCordinate, setCurrentWordCordinate] =
-    useState<cordinates>();
-  const handleClick = (wordCordinates) => {
+  const [currentWordCoordinate, setCurrentWordCoordinate] =
+    useState<coordinates>();
+  const handleClick = (wordCoordinates) => {
     setCount(count + 1);
-    console.log(wordCordinates);
-    setCurrentWordCordinate(wordCordinates);
+    console.log(wordCoordinates);
+    setCurrentWordCoordinate(wordCoordinates);
   };
   return (
     <>
-      {currentWordCordinate?.xfrom && (
+      {currentWordCoordinate?.xfrom && (
         <div className="absolute ">
           <MovingBar
-            xFrom={currentWordCordinate?.xfrom}
-            xTo={currentWordCordinate?.xto}
-            y={currentWordCordinate?.y}
+            xFrom={currentWordCoordinate?.xfrom}
+            xTo={currentWordCoordinate?.xto}
+            y={currentWordCoordinate?.y}
           />
         </div>
       )}
       <RandomWords
         words={commonWords}
         numWords={100}
-        cordinateIndex={count}
-        onButoonClick={handleClick}
+        coordinateIndex={count}
+        onButtonClick={handleClick}
       />
     </>
   );

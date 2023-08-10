@@ -4,10 +4,10 @@ import MovingBar from "./MovingBar";
 interface Props {
   words: string[];
   numWords: number;
-  cordinateIndex: number;
-  onButoonClick: (wordCordinates: cordinates) => void;
+  coordinateIndex: number;
+  onButtonClick: (wordCoordinates: coordinates) => void;
 }
-interface cordinates {
+interface coordinates {
   xfrom: number;
   xto: number;
   y: number;
@@ -25,10 +25,10 @@ const getRandomWords = (inputWords: string[], count: number) => {
 const RandomWords = ({
   words,
   numWords,
-  onButoonClick,
-  cordinateIndex,
+  onButtonClick: onButtonClick,
+  coordinateIndex: coordinateIndex,
 }: Props) => {
-  const [cordinateList, setCordinateList] = useState<cordinates[]>([]);
+  const [coordinateList, setCoordinateList] = useState<coordinates[]>([]);
   const [randomWords, setRandomWords] = useState(
     getRandomWords(words, numWords)
   );
@@ -38,14 +38,14 @@ const RandomWords = ({
     wordRefs.current.forEach((ref) => {
       if (ref.current) {
         const rect = (ref.current as HTMLElement).getBoundingClientRect();
-        setCordinateList((prev) => [
+        setCoordinateList((prev) => [
           ...prev,
           { xfrom: rect.left, xto: rect.left + rect.width, y: rect.top },
         ]);
       }
     });
   }, []);
-  console.log(cordinateList);
+  console.log(coordinateList);
 
   return (
     <>
@@ -56,7 +56,7 @@ const RandomWords = ({
             {randomWords.map((word, index) => (
               <li
                 key={index}
-                className="inline-block flex xl mx-1 "
+                className="flex xl mx-1 "
                 ref={wordRefs.current[index]}
               >
                 {word.split("").map((letter, index) => (
@@ -66,7 +66,7 @@ const RandomWords = ({
             ))}
           </ul>
         </div>
-        <button onClick={() => onButoonClick(cordinateList[cordinateIndex])}>
+        <button onClick={() => onButtonClick(coordinateList[coordinateIndex])}>
           Click me
         </button>
       </div>
