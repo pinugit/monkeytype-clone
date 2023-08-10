@@ -56,13 +56,12 @@ const RandomWords = ({
             {randomWords.map((word, index) => (
               <li
                 key={index}
-                className="inline-block flex"
+                className="inline-block flex xl mx-1 "
                 ref={wordRefs.current[index]}
               >
                 {word.split("").map((letter, index) => (
                   <p key={index}>{letter}</p>
                 ))}
-                &nbsp;
               </li>
             ))}
           </ul>

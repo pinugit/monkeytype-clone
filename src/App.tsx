@@ -120,7 +120,7 @@ function App() {
       )}
       <RandomWords
         words={commonWords}
-        numWords={20}
+        numWords={100}
         cordinateIndex={count}
         onButoonClick={handleClick}
       />
