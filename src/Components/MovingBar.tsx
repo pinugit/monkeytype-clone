@@ -3,27 +3,22 @@ import { motion } from "framer-motion";
 interface Props {
   xFrom: number;
   xTo: number;
-  yFrom: number;
-  yTo: number;
+  y: number;
 }
-const MovingBar: React.FC<Props> = ({ xFrom, xTo, yFrom, yTo }: Props) => {
+const MovingBar: React.FC<Props> = ({ xFrom, xTo, y }: Props) => {
   const [xFromState, setXFromState] = useState(xFrom);
   const [xToState, setXToState] = useState(xTo);
-  const [yFromState, setYFromState] = useState(yFrom);
-  const [yToState, setYToState] = useState(yTo);
+  const [yState, setYState] = useState(y);
   useEffect(() => {
-    setInterval(() => {
-      setXFromState(Math.random() * 100);
-      setXToState(Math.random() * 100);
-      setYFromState(Math.random() * 100);
-      setYToState(Math.random() * 100);
-    }, 1000);
-  }, []);
+    setXFromState(xFrom);
+    setXToState(xTo);
+    setYState(y);
+  }, [xFrom, xTo, y]);
   return (
     <motion.div
-      className="w-1 absolute "
-      initial={{ x: xFromState, y: yFromState }}
-      animate={{ x: xToState, y: yToState }}
+      className="w-1 "
+      initial={{ x: xFromState, y: yState }}
+      animate={{ x: xToState, y: yState }}
       transition={{
         flip: Infinity,
         duration: 1,

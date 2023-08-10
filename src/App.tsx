@@ -1,5 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 import RandomWords from "./Components/RandomWords";
+import MovingBar from "./Components/MovingBar";
+interface cordinates {
+  xfrom: number;
+  xto: number;
+  y: number;
+}
 
 function App() {
   const commonWords = [
@@ -93,12 +99,30 @@ function App() {
     "first",
     "well",
   ];
+  const [count, setCount] = useState(0);
+  const [currentWordCordinate, setCurrentWordCordinate] =
+    useState<cordinates>();
+  const handleClick = (wordCordinates) => {
+    setCount(count + 1);
+    console.log(wordCordinates);
+    setCurrentWordCordinate(wordCordinates);
+  };
   return (
-    <div className="flex h-screen w-screen p-[15%]">
-      <div className="justify-center align-middle scrollable-div max-h-60 overflow-y-scroll border scroll border-gray-300 p-4 rounded-lg">
-        <RandomWords words={commonWords} numWords={10} />
-      </div>
-    </div>
+    <>
+      <RandomWords
+        words={commonWords}
+        numWords={20}
+        cordinateIndex={count}
+        onButoonClick={handleClick}
+      />
+      {currentWordCordinate?.xfrom && (
+        <MovingBar
+          xFrom={currentWordCordinate?.xfrom}
+          xTo={currentWordCordinate?.xto}
+          y={currentWordCordinate?.y}
+        />
+      )}
+    </>
   );
 }
 
