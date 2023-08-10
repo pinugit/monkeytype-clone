@@ -109,19 +109,21 @@ function App() {
   };
   return (
     <>
+      {currentWordCordinate?.xfrom && (
+        <div className="absolute ">
+          <MovingBar
+            xFrom={currentWordCordinate?.xfrom}
+            xTo={currentWordCordinate?.xto}
+            y={currentWordCordinate?.y}
+          />
+        </div>
+      )}
       <RandomWords
         words={commonWords}
         numWords={20}
         cordinateIndex={count}
         onButoonClick={handleClick}
       />
-      {currentWordCordinate?.xfrom && (
-        <MovingBar
-          xFrom={currentWordCordinate?.xfrom}
-          xTo={currentWordCordinate?.xto}
-          y={currentWordCordinate?.y}
-        />
-      )}
     </>
   );
 }

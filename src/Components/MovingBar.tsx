@@ -16,16 +16,16 @@ const MovingBar: React.FC<Props> = ({ xFrom, xTo, y }: Props) => {
   }, [xFrom, xTo, y]);
   return (
     <motion.div
-      className="w-1 "
+      className="absolute"
       initial={{ x: xFromState, y: yState }}
       animate={{ x: xToState, y: yState }}
       transition={{
         flip: Infinity,
-        duration: 1,
+        duration: 0.5,
         ease: "easeInOut",
       }}
     >
-      <div className="bg-black w-[2px] h-[23px]"></div>
+      |
     </motion.div>
   );
 };
