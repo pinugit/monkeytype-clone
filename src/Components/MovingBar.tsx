@@ -6,17 +6,17 @@ interface Props {
   y: number;
 }
 const MovingBar: React.FC<Props> = ({ xFrom, xTo, y }: Props) => {
-  const [xFromState, setXFromState] = useState(xFrom);
-  const [xToState, setXToState] = useState(xTo);
-  const [yState, setYState] = useState(y);
+  const [xFromState, setXFromState] = useState(xFrom - 1.5);
+  const [xToState, setXToState] = useState(xTo - 1.5);
+  const [yState, setYState] = useState(y - 5);
   useEffect(() => {
-    setXFromState(xFrom);
-    setXToState(xTo);
-    setYState(y);
+    setXFromState(xFrom - 3);
+    setXToState(xTo - 3);
+    setYState(y - 5);
   }, [xFrom, xTo, y]);
   return (
     <motion.div
-      className="absolute"
+      className="absolute text-3xl"
       initial={{ x: xFromState, y: yState }}
       animate={{ x: xToState, y: yState }}
       transition={{

@@ -26,7 +26,6 @@ const WordList = ({ words }: Props) => {
         ))}
       </ul>
       <button onClick={() => handleFocus(0)}>Focus first word</button>
-      <button onClick={() => handleFocus(words.length - 1)}>
         Focus last word
       </button>
     </div>
