@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import TypingChecker from "./Components/TypingChecker";
 
 function App() {
-  return <h1>hello world</h1>;
+  return (
+    <div>
+      <TypingChecker />
+    </div>
+  );
 }
 
 export default App;
