@@ -1,9 +1,12 @@
 import React, { useRef, useState } from "react";
-import commonWords from "./WordList";
 import getRandomWords from "./GetRandomWords";
-
-const TypingChecker = () => {
-  const [words, setWords] = useState(getRandomWords(500, commonWords));
+interface props {
+  paraLength: number;
+  wordList: string[];
+  onCorrectType: (isCorrect: boolean) => void;
+}
+const TypingChecker = ({ paraLength, wordList, onCorrectType }: props) => {
+  const [words, setWords] = useState(getRandomWords(paraLength, wordList));
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const [typedWord, setTypedWord] = useState("");
@@ -17,6 +20,7 @@ const TypingChecker = () => {
       // Move to the next word when the correct word is typed
       if (words[activeWordIndex].length - 1 === activeLetterIndex) {
         console.log("next word");
+        onCorrectType(true);
         setActiveWordIndex((prevIndex) => prevIndex + 1);
         setActiveLetterIndex(0);
         setTypedWord(""); // Clear the typed word for the next input
@@ -24,6 +28,7 @@ const TypingChecker = () => {
         setActiveLetterIndex((prevIndex) => prevIndex + 1);
         setTypedWord(""); // Clear the typed word for the next input
         console.log("correct");
+        onCorrectType(true);
       }
     } else {
       console.log("not correct");
@@ -41,6 +46,7 @@ const TypingChecker = () => {
     <>
       {words.map((word, index) => (
         <div
+          onClick={handleInputFocus}
           className="flex m-1 my-1.5 snap-center text-text-secondary font-jetbrains"
           key={index}
         >
