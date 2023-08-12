@@ -1,129 +1,66 @@
-import React, { useState } from "react";
-import RandomWords from "./Components/RandomWords";
-import MovingBar from "./Components/MovingBar";
+import React, { useEffect, useState } from "react";
+import TypingChecker from "./Components/TypingChecker";
+import { BsFillKeyboardFill } from "react-icons/bs";
+import "./App.css";
+import Cursor from "./Components/Cursor";
+import commonWords from "./Components/WordList";
 interface coordinates {
-  xfrom: number;
-  xto: number;
+  x: number;
   y: number;
 }
-
 function App() {
-  const commonWords = [
-    "the",
-    "be",
-    "to",
-    "of",
-    "and",
-    "a",
-    "in",
-    "that",
-    "have",
-    "I",
-    "it",
-    "for",
-    "not",
-    "on",
-    "with",
-    "he",
-    "as",
-    "you",
-    "do",
-    "at",
-    "this",
-    "but",
-    "his",
-    "by",
-    "from",
-    "they",
-    "we",
-    "say",
-    "her",
-    "she",
-    "or",
-    "an",
-    "will",
-    "my",
-    "one",
-    "all",
-    "would",
-    "there",
-    "their",
-    "what",
-    "so",
-    "up",
-    "out",
-    "if",
-    "about",
-    "who",
-    "get",
-    "which",
-    "go",
-    "me",
-    "when",
-    "make",
-    "can",
-    "like",
-    "time",
-    "no",
-    "just",
-    "him",
-    "know",
-    "take",
-    "person",
-    "into",
-    "year",
-    "your",
-    "good",
-    "some",
-    "could",
-    "them",
-    "see",
-    "other",
-    "than",
-    "then",
-    "now",
-    "look",
-    "only",
-    "come",
-    "its",
-    "over",
-    "think",
-    "also",
-    "back",
-    "after",
-    "use",
-    "two",
-    "how",
-    "our",
-    "work",
-    "first",
-    "well",
-  ];
+  const [coordinateList, setCoordinateList] = useState<coordinates[]>([]);
+  const [currentCoordinate, setCurrentCoordinate] = useState<coordinates>({
+    x: coordinateList[0]?.x,
+    y: coordinateList[0]?.y,
+  });
   const [count, setCount] = useState(0);
-  const [currentWordCoordinate, setCurrentWordCoordinate] =
-    useState<coordinates>();
-  const handleClick = (wordCoordinates) => {
+  useEffect(() => {
+    const pElements = document.querySelectorAll("p");
+
+    pElements.forEach((pElements) => {
+      const rect = pElements.getBoundingClientRect();
+      setCoordinateList((prev) => [...prev, { x: rect.x, y: rect.y }]);
+      setCurrentCoordinate(coordinateList[0]);
+    });
+  }, []);
+
+  const handleClick = () => {
+    setCurrentCoordinate(coordinateList[count]);
     setCount(count + 1);
-    console.log(wordCoordinates);
-    setCurrentWordCoordinate(wordCoordinates);
   };
+  console.log(currentCoordinate);
+
   return (
     <>
-      {currentWordCoordinate?.xfrom && (
-        <div className="absolute ">
-          <MovingBar
-            xFrom={currentWordCoordinate?.xfrom}
-            xTo={currentWordCoordinate?.xto}
-            y={currentWordCoordinate?.y}
+      <Cursor x={currentCoordinate?.x} y={currentCoordinate?.y} />
+      <div className="flex flex-col px-[10%] bg-primary h-screen text-text-primary ">
+        <div className="flex m-6">
+          <BsFillKeyboardFill className="text-5xl me-3" />
+          <h1 className="text-[#ebdbb2] text-5xl font-kanit">fastTyper</h1>
+        </div>
+        <div className="flex justify-center mb-40">
+          <div className="bg-primary-dark h-10 w-[70%] rounded-xl">
+            word is pending{" "}
+          </div>
+        </div>
+        <div
+          id="unselectable"
+          className=" h-28 w-[100%] flex flex-wrap content-start text-2xl p-6 overflow-hidden snap-y overflow-y-auto "
+        >
+          <TypingChecker
+            paraLength={10}
+            wordList={commonWords}
+            onCorrectType={handleClick}
           />
         </div>
-      )}
-      <RandomWords
-        words={commonWords}
-        numWords={100}
-        coordinateIndex={count}
-        onButtonClick={handleClick}
-      />
+        <button
+          onClick={handleClick}
+          className="bg-primary-dark h-10 w-[70%] rounded-xl"
+        >
+          Start
+        </button>
+      </div>
     </>
   );
 }
