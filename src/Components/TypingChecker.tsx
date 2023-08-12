@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import commonWords from "./WordList";
 import getRandomWords from "./GetRandomWords";
 
@@ -7,6 +7,7 @@ const TypingChecker = () => {
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const [typedWord, setTypedWord] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (event) => {
     const { value } = event.target;
@@ -29,24 +30,39 @@ const TypingChecker = () => {
       setTypedWord("");
     }
   };
+  const handleInputFocus = () => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+      console.log("clicked");
+    }
+  };
 
   return (
-    <div>
+    <div onClick={handleInputFocus}>
       {words.map((word, index) => (
-        <div className="ml-4 flex" key={index}>
+        <li className="flex" key={index}>
           {word.split("").map((letter, letterIndex) => (
             <p
               key={letterIndex}
               className={
-                activeWordIndex == letterIndex ? "active" : "not-active"
+                activeWordIndex === index && activeLetterIndex === letterIndex
+                  ? "active"
+                  : "not-active"
               }
             >
               {letter}
             </p>
           ))}
-        </div>
+        </li>
       ))}
-      <input type="text" value={typedWord} onChange={handleInputChange} />
+      <input
+        ref={inputRef}
+        type="text"
+        value={typedWord}
+        onChange={handleInputChange}
+        style={{ top: "-100px" }}
+        className="absolute"
+      />
     </div>
   );
 };

@@ -5,7 +5,18 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "kanit": ["kanit", "sans-serif"]
+      }
+      ,
+      colors: {
+        'primary': '#282828',
+        "primary-dark": "#212121",
+        "text-primary": "#d79921",
+        "text-secondary": "#000"
+      }
+    },
   },
   plugins: [],
 }
