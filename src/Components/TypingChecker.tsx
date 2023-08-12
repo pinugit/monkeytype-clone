@@ -3,7 +3,7 @@ import commonWords from "./WordList";
 import getRandomWords from "./GetRandomWords";
 
 const TypingChecker = () => {
-  const [words, setWords] = useState(getRandomWords(10, commonWords));
+  const [words, setWords] = useState(getRandomWords(500, commonWords));
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const [typedWord, setTypedWord] = useState("");
@@ -38,9 +38,12 @@ const TypingChecker = () => {
   };
 
   return (
-    <div onClick={handleInputFocus}>
+    <>
       {words.map((word, index) => (
-        <li className="flex" key={index}>
+        <div
+          className="flex m-1 my-1.5 snap-center text-text-secondary font-jetbrains"
+          key={index}
+        >
           {word.split("").map((letter, letterIndex) => (
             <p
               key={letterIndex}
@@ -53,7 +56,7 @@ const TypingChecker = () => {
               {letter}
             </p>
           ))}
-        </li>
+        </div>
       ))}
       <input
         ref={inputRef}
@@ -63,7 +66,7 @@ const TypingChecker = () => {
         style={{ top: "-100px" }}
         className="absolute"
       />
-    </div>
+    </>
   );
 };
 export default TypingChecker;

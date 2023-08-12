@@ -7,14 +7,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "kanit": ["kanit", "sans-serif"]
+        "kanit": ["kanit", "sans-serif"],
+        "jetbrains": ['JetBrains Mono', "monospace"]
       }
       ,
       colors: {
         'primary': '#282828',
         "primary-dark": "#212121",
         "text-primary": "#d79921",
-        "text-secondary": "#000"
+        "text-secondary": "#665c54"
       }
     },
   },
