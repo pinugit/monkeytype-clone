@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TypingChecker from "./Components/TypingChecker";
 import { BsFillKeyboardFill } from "react-icons/bs";
+import "./App.css";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         </div>
       </div>
       <div
-        id="scrollable"
+        id="unselectable"
         className=" h-28 w-[100%] flex flex-wrap content-start text-2xl p-6 overflow-hidden snap-y overflow-y-auto "
       >
         <TypingChecker />
