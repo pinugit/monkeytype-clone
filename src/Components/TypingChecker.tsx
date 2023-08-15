@@ -1,17 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { MutableRefObject, Ref, useRef, useState } from "react";
 import getRandomWords from "./GetRandomWords";
 interface props {
   paraLength: number;
   wordList: string[];
   onCorrectType: (isCorrect: boolean) => void;
+  onPassingPElement: (
+    pElement: MutableRefObject<HTMLParagraphElement[] | null[]>
+  ) => void;
 }
-const TypingChecker = ({ paraLength, wordList, onCorrectType }: props) => {
+const TypingChecker = ({
+  paraLength,
+  wordList,
+  onCorrectType,
+  onPassingPElement,
+}: props) => {
   const [words, setWords] = useState(getRandomWords(paraLength, wordList));
   const [activeWordIndex, setActiveWordIndex] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const [typedWord, setTypedWord] = useState("");
+  const [count, setCount] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const paraRef = useRef<HTMLParagraphElement[] | null[]>([]);
   const handleInputChange = (event) => {
     const { value } = event.target;
     setTypedWord(value);
@@ -41,7 +50,7 @@ const TypingChecker = ({ paraLength, wordList, onCorrectType }: props) => {
       console.log("clicked");
     }
   };
-
+  onPassingPElement(paraRef);
   return (
     <>
       {words.map((word, index) => (
@@ -58,6 +67,9 @@ const TypingChecker = ({ paraLength, wordList, onCorrectType }: props) => {
                   ? "active"
                   : "not-active"
               }
+              ref={(element) => {
+                paraRef.current[index * words.length + letterIndex] = element;
+              }}
             >
               {letter}
             </p>

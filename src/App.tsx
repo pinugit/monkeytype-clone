@@ -15,12 +15,15 @@ function App() {
     y: coordinateList[0]?.y,
   });
   const [count, setCount] = useState(0);
+  const [pElementsList, setPElementsList] = useState<
+    HTMLParagraphElement[] | null[]
+  >([]);
   useEffect(() => {
-    const pElements = document.querySelectorAll("p");
-
-    pElements.forEach((pElements) => {
-      const rect = pElements.getBoundingClientRect();
-      setCoordinateList((prev) => [...prev, { x: rect.x, y: rect.y }]);
+    pElementsList.map((pElement) => {
+      setCoordinateList((prev) => [
+        ...prev,
+        { x: pElement.offsetLeft, y: pElement.offsetTop },
+      ]);
       setCurrentCoordinate(coordinateList[0]);
     });
   }, []);
@@ -29,7 +32,11 @@ function App() {
     setCurrentCoordinate(coordinateList[count]);
     setCount(count + 1);
   };
-  console.log(currentCoordinate);
+
+  const handlePElements = (pElement: any) => {
+    setPElementsList(pElement);
+    console.log(pElementsList);
+  };
 
   return (
     <>
@@ -52,6 +59,7 @@ function App() {
             paraLength={10}
             wordList={commonWords}
             onCorrectType={handleClick}
+            onPassingPElement={handlePElements}
           />
         </div>
         <button
